@@ -1,0 +1,73 @@
+import java.util.*;
+
+/**
+ * Mardi Gras: Determining whether floats can be reordered with the help of the side street.
+ *
+ * @author Sonith Riem
+ */
+
+public class Main {
+
+    public static void main(String args[]) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter all the elements: ");
+
+        //length of the input
+        int n = sc.nextInt();
+
+        //main street
+        Stack<Integer> horizontal = new Stack<>();
+        //side street
+        Stack<Integer> vertical = new Stack<>();
+        //inputs
+        ArrayList<Integer> input = new ArrayList<>();
+
+
+        for (int i = 0; i < n; i++)
+        {
+            input.add(sc.nextInt());
+        }
+
+        int counter = 1;
+        int i = 0;
+
+        while (!(vertical.size() == 0)) {
+
+            // If the input is equals to the first order, then push the number forward.
+            if (i < n && input.get(i) == counter)
+            {
+                horizontal.push(input.get(i));
+                counter++;
+                i++;
+
+            //If the side street is not empty and the top value is equal to the order, then push the number to the main street.
+            } else if ( (vertical.peek() == counter) && (!vertical.empty()) )
+            {
+                horizontal.push(vertical.pop());
+                counter++;
+
+            // If none of the two scenario works, push the float into the side street.
+            } else if ( (i < n ) && (input.get(i) != counter) )
+            {
+                vertical.push(input.get(i));
+                i++;
+
+            }
+            else
+            {
+                System.out.println("No");
+                return;
+            }
+
+        }
+
+        //If the side street is empty, reordering floats is possible.
+        if (vertical.size() == 0)
+        {
+            System.out.println("Yes");
+        }
+
+    }
+
+}
